@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# ReactMatch -- Number Match Game
+
+---
+
+## 📂 Project Structure
 
 ```code
 src/
@@ -38,3 +42,5 @@ tests/
   numberMatch/reducer.test.ts
 
 ```
+
+---
