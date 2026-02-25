@@ -25,3 +25,8 @@ export type Action =
   | { type: 'DEAL_MORE' }
   | { type: 'CLEAR_SELECTION' }
   | { type: 'LOAD'; payload: GameState };
+
+export type RulesConfig = {
+  allowDiagonal: boolean;
+  diagonalMode: 'adjacent' | 'line' | 'both';
+};

@@ -44,15 +44,40 @@ function clearBetweenLinear(grid: Cell[][], p1: Pos, p2: Pos, cols: number) {
   return true;
 }
 
+function clearBetweenDiag(grid: Cell[][], p1: Pos, p2: Pos) {
+  const dr = p2.r - p1.r;
+  const dc = p2.c - p1.c;
+
+  // Must be on a diagonal: |dr| === |dc|
+  if (Math.abs(dr) !== Math.abs(dc)) return false;
+
+  const stepR = dr > 0 ? 1 : -1;
+  const stepC = dc > 0 ? 1 : -1;
+
+  let r = p1.r + stepR;
+  let c = p1.c + stepC;
+
+  while (r !== p2.r && c !== p2.c) {
+    if (grid[r][c] !== null) return false;
+    r += stepR;
+    c += stepC;
+  }
+
+  return true;
+}
+
+function isDiagonalNeighbor(p1: Pos, p2: Pos) {
+  return Math.abs(p1.r - p2.r) === 1 && Math.abs(p1.c - p2.c) === 1;
+}
+
 export function isConnectable(grid: Cell[][], p1: Pos, p2: Pos) {
   const rows = grid.length;
   const cols = grid[0]?.length ?? 0;
   if (!rows || !cols) return false;
 
-  // same cell not allowed
   if (p1.r === p2.r && p1.c === p2.c) return false;
 
-  // must be in bounds
+  // bounds check
   if (
     p1.r < 0 ||
     p1.r >= rows ||
@@ -65,10 +90,14 @@ export function isConnectable(grid: Cell[][], p1: Pos, p2: Pos) {
   )
     return false;
 
-  // row / col direct line-of-sight
+  // direct row/col
   if (p1.r === p2.r) return clearBetweenRow(grid, p1.r, p1.c, p2.c);
   if (p1.c === p2.c) return clearBetweenCol(grid, p1.c, p1.r, p2.r);
 
-  // wrap / next-line scanning (linear)
+  // ✅ diagonal adjacency OR diagonal line-of-sight through blanks
+  if (isDiagonalNeighbor(p1, p2)) return true;
+  if (clearBetweenDiag(grid, p1, p2)) return true;
+
+  // wrap / next-line scanning (your rule #2)
   return clearBetweenLinear(grid, p1, p2, cols);
 }
