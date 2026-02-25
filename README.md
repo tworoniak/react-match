@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# ReactMatch -- Number Match Game
+
+## A React + TypeScript version of the classic Number Match game.
+
+## 📂 Project Structure
 
 ```code
 src/
@@ -38,3 +42,5 @@ tests/
   numberMatch/reducer.test.ts
 
 ```
+
+---
