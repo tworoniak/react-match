@@ -1,6 +1,4 @@
-# ReactMatch -- Number Match Game
-
-## A React + TypeScript version of the classic Number Match game.
+# 🎱 ReactMatch -- A React + TypeScript version of the classic Number Match game.
 
 ## 📂 Project Structure
 
